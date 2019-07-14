@@ -3,11 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <!--<group android:checkableBehavior="single">-->
         <item
             android:id="@+id/upload"
             android:icon="@drawable/ic_cloud_upload_black_24dp"
-            android:title="Upload"></item>
+            android:title="Upload"
+            ></item>
 
         <item
             android:id="@+id/download"
@@ -28,7 +29,4 @@
             android:id="@+id/Profile"
             android:icon="@drawable/ic_person_black_24dp"
             android:title="MyProfile" />
-
-    </group>
-
 </menu>

@@ -4,13 +4,18 @@ import android.provider.BaseColumns;
 
 public class  DataContract {
 
+    public static final class variablesentry {
+
+        public static final String url = "http://192.168.1.5/api/";
+        public static final String newurl = "http://192.168.1.5";
+    }
     public static final class Customer_Entry implements BaseColumns{
 
         public static final String TABLE_NAME = "Customer";
         public static final String COLUMN_Customer_ID = BaseColumns._ID;
         public static final String COLUMN_FirstName = "FirstName";
         public static final String COLUMN_LastName = "LastName";
-        // public static final String COLUMN_SalesManager_ID = "SalesManager_ID";
+        public static final String COLUMN_SalesManager_ID = "SalesManager_ID";
         public static final String COLUMN_EnterpriseName = "EnterpriseName";
         public static final String COLUMN_JobPosition = "JobPosition";
         public static final String COLUMN_Adress = "Adress";
@@ -23,6 +28,7 @@ public class  DataContract {
         public static final String COLUMN_UpdatedBy = "UpdatedBy";
         public static final String COLUMN_IsActive = "IsActive";
         public static final String COLUMN_PaymentMethod = "PaymentMethod";
+        public static final String COLUMN_CUSTOMERAPI_ID = "API_id";
     }
 
     public  static  final class Product_Entry implements  BaseColumns{
@@ -43,6 +49,8 @@ public class  DataContract {
         public static final String COLUMN_PRODUCT_UPDATEDBY="Product_UpdatedtedBy";
         public static final String COLUMN_PRODUCT_UPDATEDDATE="Product_UpdatedtedDate";
         public static final String COLUMN_PRODUCT_ISACTIVE="IsActive";
+        public static final String COLUMN_UNITPRICE = "unitprice";
+        public static final String COLUMN_PRODUCTAPI_ID = "API_id";
     }
 
     public  static  final class PurchaseInvoice_Entry implements  BaseColumns{
@@ -89,6 +97,35 @@ public class  DataContract {
         public static String LOCATION_LONGITUDE = "longitude";
         public static  String LOCATION_ZOOM = "ZOOM";
         public static  String CURRENT_DATE = "col_current_date";
+    }
+
+    public static final class Orders_entry implements BaseColumns {
+        public static String ORDER_TABLE_NAME = "Orders";
+        public static String ORDER_ID = BaseColumns._ID;
+        public static String ORDER_DATE = "OrderDate";
+        public static String CUSTOMER_ID_FK = "CustomerIdFk";
+        public static String ISCONFIRMED = "IsConfirmed";
+        public static String CREATED_BY = "CreatedBy";
+        public static String CREATED_DATE = "CreatedDate";
+        public static String ISACTIVE = "IsActive";
+        public static String UPDATED_DATE = "UpdatedDate";
+        public static String UPDATED_BY = "UpdatedBy";
+        public static String COUNT = "Count";
+
+    }
+
+    public static final class OrderLine_Entry implements BaseColumns{
+        public  static String ORDERLINES_TABLE_NAME = "OrderLines";
+        public static  String ORDERLINES_ID = BaseColumns._ID;
+        public static String CREATED_BY = "CreatedBy";
+        public static String CREATED_DATE = "CreatedDate";
+        public static String ISACTIVE = "IsActive";
+        public static String UPDATED_DATE = "UpdatedDate";
+        public static String UPDATED_BY = "UpdatedBy";
+        public static String QUANTITY = "Quantity";
+        public static String TOTALPRICE = "TotalPrice";
+        public static String PRODUCT_ID_FK = "ProductID_Fk";
+        public static String ORDER_ID_FK = "OrderID_Fk";
 
     }
 }

@@ -17,38 +17,44 @@ import com.practice.e_centrar.DataContract.GoodNotes_Entry;
 import com.practice.e_centrar.DataContract.PurchaseInvoice_Entry;
 import com.practice.e_centrar.DataContract.Locations_entry;
 import java.lang.ref.PhantomReference;
+import java.util.ArrayList;
 
-public class DatabaseHelper extends SQLiteOpenHelper{
+public class DatabaseHelper extends SQLiteOpenHelper {
 
     public static final int DATABASE_VERSION = 1;
-    public static final String DATABASE_NAME = "hello.db";
+    public static final String DATABASE_NAME = "nedfyp.db";
+    ArrayList<Customer> list;
+    ArrayList<Product> productlist;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        String CUSTOMER_TABLE = "CREATE TABLE " + DataContract.Customer_Entry.TABLE_NAME + " ( "+
-                DataContract.Customer_Entry.COLUMN_Customer_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + DataContract.Customer_Entry.COLUMN_FirstName+" TEXT, " + DataContract.Customer_Entry.COLUMN_LastName+" TEXT, "+
-                DataContract.Customer_Entry.COLUMN_Adress +" TEXT, "+ DataContract.Customer_Entry.COLUMN_EnterpriseName +" TEXT, "+ DataContract.Customer_Entry.COLUMN_JobPosition + " TEXT, " +
-                DataContract.Customer_Entry.COLUMN_Email +" TEXT, "+ DataContract.Customer_Entry.COLUMN_MobileNo +" TEXT, " + DataContract.Customer_Entry.COLUMN_PhoneNo + " TEXT, "+
-                DataContract.Customer_Entry.COLUMN_DateCreated +" TEXT, "+ DataContract.Customer_Entry.COLUMN_PaymentMethod +" TEXT, " + DataContract.Customer_Entry.COLUMN_IsActive + " TEXT, " +
-                DataContract.Customer_Entry.COLUMN_CreatedBy +" TEXT, "+ DataContract.Customer_Entry.COLUMN_UpdatedBy +" TEXT, " + DataContract.Customer_Entry.COLUMN_UpdatedDate + " TEXT );";
+        String CUSTOMER_TABLE = "CREATE TABLE " + DataContract.Customer_Entry.TABLE_NAME + " ( " +
+                DataContract.Customer_Entry.COLUMN_Customer_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " + DataContract.Customer_Entry.COLUMN_FirstName + " TEXT, " + DataContract.Customer_Entry.COLUMN_LastName + " TEXT, " +
+                DataContract.Customer_Entry.COLUMN_Adress + " TEXT, " + DataContract.Customer_Entry.COLUMN_EnterpriseName + " TEXT, " + DataContract.Customer_Entry.COLUMN_JobPosition + " TEXT, " +
+                DataContract.Customer_Entry.COLUMN_Email + " TEXT, " + DataContract.Customer_Entry.COLUMN_MobileNo + " TEXT, " + DataContract.Customer_Entry.COLUMN_PhoneNo + " TEXT, " +
+                DataContract.Customer_Entry.COLUMN_DateCreated + " TEXT, " + DataContract.Customer_Entry.COLUMN_PaymentMethod + " TEXT, " + DataContract.Customer_Entry.COLUMN_IsActive + " TEXT, " +
+                DataContract.Customer_Entry.COLUMN_CreatedBy + " TEXT, " + DataContract.Customer_Entry.COLUMN_UpdatedBy + " TEXT, " + DataContract.Customer_Entry.COLUMN_UpdatedDate + " TEXT, " + Customer_Entry.COLUMN_SalesManager_ID + " INTEGER, "
+                + Customer_Entry.COLUMN_CUSTOMERAPI_ID + " INTEGER ); ";
 
-        String PRODUCT_TABLE= "CREATE TABLE " + Product_Entry.PRODUCT_TABLE_NAME + " ( " + Product_Entry.COLUMN_PRODUCT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Product_Entry.COLUMN_PRODUCT_NAME + " TEXT, " +
-                Product_Entry.COLUMN_PRODUCT_CATEGORYID_FK_+ " INTEGER, " + Product_Entry.COLUMN_PRODUCT_PRODUCTTYPEID_FK + " INTEGER, " + Product_Entry.COLUMN_PRODUCT_ONHAND + " TEXT, " +
+        String PRODUCT_TABLE = "CREATE TABLE " + Product_Entry.PRODUCT_TABLE_NAME + " ( " + Product_Entry.COLUMN_PRODUCT_ID + " INTEGER PRIMARY KEY AUTOINCREMENT , " + Product_Entry.COLUMN_PRODUCT_NAME + " TEXT, " +
+                Product_Entry.COLUMN_PRODUCT_CATEGORYID_FK_ + " INTEGER, " + Product_Entry.COLUMN_PRODUCT_PRODUCTTYPEID_FK + " INTEGER, " + Product_Entry.COLUMN_PRODUCT_ONHAND + " TEXT, " +
                 Product_Entry.COLUMN_PRODUCT_INSTOCK + " TEXT, " + Product_Entry.COLUMN_PRODUCT_FULFILLED + " TEXT, " + Product_Entry.COLUMN_PRODUCT_SKU + " TEXT, " +
                 Product_Entry.COLUMN_PRODUCT_IMAGE + " TEXT, " + Product_Entry.COLUMN_PRODUCT_CREATEDBY + " TEXT, " + Product_Entry.COLUMN_PRODUCT_CREATEDDATE + " TEXT, " +
                 Product_Entry.COLUMN_PRODUCT_UPDATEDBY + " TEXT, " + Product_Entry.COLUMN_PRODUCT_UPDATEDDATE + " TEXT, " + Product_Entry.COLUMN_PRODUCT_ISACTIVE + " TEXT, " +
-                Product_Entry.COLUMN_PRODUCT_VARIANTS + " TEXT ); ";
+                Product_Entry.COLUMN_PRODUCT_VARIANTS + " TEXT, " + Product_Entry.COLUMN_UNITPRICE + " TEXT, " + Product_Entry.COLUMN_PRODUCTAPI_ID + " INTEGER ); ";
 
         String GOODNOTE_TABLE = " CREATE TABLE " + GoodNotes_Entry.GOODNOTES_TABLE_NAME + "( " + GoodNotes_Entry.GOODNOTES_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 GoodNotes_Entry.GOODNOTES_ORDERID_FK + " INTEGER, " + GoodNotes_Entry.GOODNOTES_DELIVERTO + " TEXT, " + GoodNotes_Entry.GOODNOTES_ORDERSTATUS + " TEXT, " +
                 GoodNotes_Entry.GOODNOTES_PACKED + " TEXT, " + GoodNotes_Entry.GOODNOTES_PICKED + " TEXT, " + GoodNotes_Entry.GOODNOTES_PRINTED + " TEXT, " +
                 GoodNotes_Entry.GOODNOTES_SHIPPED + " TEXT, " + GoodNotes_Entry.GOODNOTES_WAREHOUSE + " TEXT, " + GoodNotes_Entry.GOODNOTES_CREATEDBY + " TEXT, " +
                 GoodNotes_Entry.GOODNOTES_CREATEDDATE + " TEXT, " + GoodNotes_Entry.GOODNOTES_UPDATEDBY + " TEXT, " + GoodNotes_Entry.GOODNOTES_UPDATEDDATE + " TEXT, " +
-                GoodNotes_Entry.GOODNOTES_ISACTIVE + " TEXT ); " ;
+                GoodNotes_Entry.GOODNOTES_ISACTIVE + " TEXT ); ";
+
 
         String PURCHASE_INVOICE = "CREATE TABLE " + PurchaseInvoice_Entry.PURCHASE_ORDER_TABLE_NAME + " ( " + PurchaseInvoice_Entry.PURCHASE_INVOICE_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 PurchaseInvoice_Entry.PURCHASE_SUPPLIER + " TEXT, " + PurchaseInvoice_Entry.PURCHASE_BALANCE + " TEXT, " + PurchaseInvoice_Entry.PURCHASE_DUEDATE + " TEXT, " +
@@ -56,31 +62,65 @@ public class DatabaseHelper extends SQLiteOpenHelper{
                 PurchaseInvoice_Entry.PURCHASE_STATUS + " TEXT, " + PurchaseInvoice_Entry.PURCHASE_REVENUE + " TEXT, " + PurchaseInvoice_Entry.PURCHASE_TOTAL + " TEXT, " +
                 PurchaseInvoice_Entry.PURCHASE_CREATEDBY + " TEXT, " + PurchaseInvoice_Entry.PURCHASE_CREATEDDATE + " TEXT, " + PurchaseInvoice_Entry.PURCHASE_UPDATEDBY + " TEXT, " +
                 PurchaseInvoice_Entry.PURCHASE_UPDATEDDATE + " TEXT, " + PurchaseInvoice_Entry.PURCHASE_ISACTIVE + " TEXT );";
-        Log.v("DatabaseHelper",PURCHASE_INVOICE);
+        Log.v("DatabaseHelper", PURCHASE_INVOICE);
 
-        String LOCATION_TRACKER =  "create table " + Locations_entry.LOCATION_TABLE_NAME + " ( " +
+        String LOCATION_TRACKER = "create table " + Locations_entry.LOCATION_TABLE_NAME + " ( " +
                 Locations_entry.LOCATION_ID + " integer primary key autoincrement , " +
                 Locations_entry.LOCATION_LATITUDE + " REAL , " +
                 Locations_entry.LOCATION_LONGITUDE + " REAL , " +
-                Locations_entry.LOCATION_ZOOM + " TEXT , "  +
+                Locations_entry.LOCATION_ZOOM + " TEXT , " +
                 Locations_entry.CURRENT_DATE + " TEXT " +
                 " ); ";
-        Log.v("DatabaseHelper",LOCATION_TRACKER);
+        Log.v("DatabaseHelper", LOCATION_TRACKER);
+
+        String ORDER = "create table "
+                + DataContract.Orders_entry.ORDER_TABLE_NAME + " ("
+                + DataContract.Orders_entry.ORDER_ID + " integer primary key autoincrement, "
+                + DataContract.Orders_entry.COUNT + " TEXT , "
+                + DataContract.Orders_entry.ORDER_DATE + " text not null, "
+                + DataContract.Orders_entry.CREATED_BY + " text not null,"
+                + DataContract.Orders_entry.CREATED_DATE + " text not null,"
+                + DataContract.Orders_entry.ISACTIVE + " text not null,"
+                + DataContract.Orders_entry.ISCONFIRMED + " text not null,"
+                + DataContract.Orders_entry.UPDATED_BY + " text ,"
+                + DataContract.Orders_entry.UPDATED_DATE + " text ,"
+                + DataContract.Orders_entry.CUSTOMER_ID_FK + " integer,"
+                + " FOREIGN KEY ("+DataContract.Orders_entry.CUSTOMER_ID_FK+") REFERENCES "+ Customer_Entry.TABLE_NAME+"("+ Customer_Entry.COLUMN_CUSTOMERAPI_ID+"));";
+
+
+        String ORDERLINES = "create table "
+                + DataContract.OrderLine_Entry.ORDERLINES_TABLE_NAME + " ("
+                + DataContract.OrderLine_Entry.ORDERLINES_ID + " integer primary key autoincrement, "
+                + DataContract.OrderLine_Entry.QUANTITY + " TEXT NOT NULL, "
+                + DataContract.OrderLine_Entry.TOTALPRICE + " text not null, "
+                + DataContract.OrderLine_Entry.CREATED_BY + " text not null,"
+                + DataContract.OrderLine_Entry.CREATED_DATE + " text not null,"
+                + DataContract.OrderLine_Entry.ISACTIVE + " text not null,"
+                + DataContract.OrderLine_Entry.PRODUCT_ID_FK + " text not null,"
+                + DataContract.OrderLine_Entry.UPDATED_BY + " text ,"
+                + DataContract.OrderLine_Entry.UPDATED_DATE + " text ,"
+                + DataContract.OrderLine_Entry.ORDER_ID_FK + " integer,"
+                + " FOREIGN KEY ("+DataContract.OrderLine_Entry.ORDER_ID_FK+") REFERENCES "+ DataContract.Orders_entry.ORDER_TABLE_NAME+"("+ DataContract.Orders_entry.ORDER_ID+"),"
+                + " FOREIGN KEY ("+DataContract.OrderLine_Entry.PRODUCT_ID_FK+") REFERENCES "+ Product_Entry.PRODUCT_TABLE_NAME+"("+ Product_Entry.COLUMN_PRODUCTAPI_ID+"));";
 
         db.execSQL(CUSTOMER_TABLE);
         db.execSQL(PRODUCT_TABLE);
         db.execSQL(GOODNOTE_TABLE);
         db.execSQL(PURCHASE_INVOICE);
         db.execSQL(LOCATION_TRACKER);
+        db.execSQL(ORDER);
+        db.execSQL(ORDERLINES);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-        db.execSQL("DROP TABLE IF EXISTS " + DataContract.Customer_Entry.TABLE_NAME );
+        db.execSQL("DROP TABLE IF EXISTS " + DataContract.Customer_Entry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + PurchaseInvoice_Entry.PURCHASE_ORDER_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + Product_Entry.PRODUCT_TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + GoodNotes_Entry.GOODNOTES_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DataContract.Orders_entry.ORDER_TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DataContract.OrderLine_Entry.ORDERLINES_TABLE_NAME);
 
         onCreate(db);
     }
@@ -88,15 +128,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public String loadHandler() {
 
         String result = "";
-        String query = "Select * FROM " + DataContract.Customer_Entry.TABLE_NAME ;
+        String query = "Select * FROM " + DataContract.Customer_Entry.TABLE_NAME;
         String query1 = "Select * FROM " + PurchaseInvoice_Entry.PURCHASE_ORDER_TABLE_NAME;
         String query2 = "Select * FROM " + Product_Entry.PRODUCT_TABLE_NAME;
         String query3 = "Select * FROM " + GoodNotes_Entry.GOODNOTES_TABLE_NAME;
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(query, null);
-        Cursor cursor1 = db.rawQuery(query1,null);
-        Cursor cursor2 = db.rawQuery(query2,null);
-        Cursor cursor3 = db.rawQuery(query3,null);
+        Cursor cursor1 = db.rawQuery(query1, null);
+        Cursor cursor2 = db.rawQuery(query2, null);
+        Cursor cursor3 = db.rawQuery(query3, null);
 
 
         // Column Indices of Customer table
@@ -104,16 +144,17 @@ public class DatabaseHelper extends SQLiteOpenHelper{
         int lastNameColumnIndex = cursor.getColumnIndex(Customer_Entry.COLUMN_LastName);
         int addressColumnIndex = cursor.getColumnIndex(Customer_Entry.COLUMN_Adress);
         int enterpriseColumnIndex = cursor.getColumnIndex(Customer_Entry.COLUMN_EnterpriseName);
-        int emailColumnIndex =  cursor.getColumnIndex(Customer_Entry.COLUMN_Email);
-        int Mob_NoColumnIndex =  cursor.getColumnIndex(Customer_Entry.COLUMN_MobileNo);
-        int Phone_noColumnIndex =  cursor.getColumnIndex(Customer_Entry.COLUMN_PhoneNo);
-        int Job_positionColumnIndex =  cursor.getColumnIndex(Customer_Entry.COLUMN_JobPosition);
-        int Updated_byColumnIndex =  cursor.getColumnIndex(Customer_Entry.COLUMN_UpdatedBy);
-        int Updated_dateColumnIndex =  cursor.getColumnIndex(Customer_Entry.COLUMN_UpdatedDate);
-        int Date_CreatedColumnIndex =  cursor.getColumnIndex(Customer_Entry.COLUMN_DateCreated);
-        int IsActiveColumnIndex =  cursor.getColumnIndex(Customer_Entry.COLUMN_IsActive);
-        int PaymentMethodColumnIndex =  cursor.getColumnIndex(Customer_Entry.COLUMN_PaymentMethod);
-        int Created_ByColumnIndex =  cursor.getColumnIndex(Customer_Entry.COLUMN_CreatedBy);
+        int emailColumnIndex = cursor.getColumnIndex(Customer_Entry.COLUMN_Email);
+        int Mob_NoColumnIndex = cursor.getColumnIndex(Customer_Entry.COLUMN_MobileNo);
+        int Phone_noColumnIndex = cursor.getColumnIndex(Customer_Entry.COLUMN_PhoneNo);
+        int Job_positionColumnIndex = cursor.getColumnIndex(Customer_Entry.COLUMN_JobPosition);
+        int Updated_byColumnIndex = cursor.getColumnIndex(Customer_Entry.COLUMN_UpdatedBy);
+        int Updated_dateColumnIndex = cursor.getColumnIndex(Customer_Entry.COLUMN_UpdatedDate);
+        int Date_CreatedColumnIndex = cursor.getColumnIndex(Customer_Entry.COLUMN_DateCreated);
+        int IsActiveColumnIndex = cursor.getColumnIndex(Customer_Entry.COLUMN_IsActive);
+        int PaymentMethodColumnIndex = cursor.getColumnIndex(Customer_Entry.COLUMN_PaymentMethod);
+        int Created_ByColumnIndex = cursor.getColumnIndex(Customer_Entry.COLUMN_CreatedBy);
+        int SalesManagerFK = cursor.getColumnIndex(Customer_Entry.COLUMN_SalesManager_ID);
 
         //Column indices of Purchase invoice table
         int supplierColumnIndex = cursor1.getColumnIndex(PurchaseInvoice_Entry.PURCHASE_SUPPLIER);
@@ -179,14 +220,15 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             String is_active = cursor.getString(IsActiveColumnIndex);
             String payment_method = cursor.getString(PaymentMethodColumnIndex);
             String created_by = cursor.getString(Created_ByColumnIndex);
+            String SalesManager = cursor.getString(SalesManagerFK);
 
             result += firstname + " " + lastname + " " + email + " " + address + " " + enterprise + " " + mobile + " " + phone +
-                    " " + jobpos + " " + update_by + " " + updated_date + " " + date_created + " " + is_active + " " + payment_method + " " + created_by + "\n\n";
+                    " " + jobpos + " " + update_by + " " + updated_date + " " + date_created + " " + is_active + " " + payment_method + " " + created_by + " " + SalesManager + "\n\n";
             System.getProperty("line.separator");
         }
 
         //To retrieve the purchase invoice table
-        while(cursor1.moveToNext()){
+        while (cursor1.moveToNext()) {
             String supplier = cursor1.getString(supplierColumnIndex);
             String paymentdate = cursor1.getString(PaymentDateColumnIndex);
             String duedate = cursor1.getString(DueDateColumnIndex);
@@ -203,13 +245,13 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             String isactive = cursor1.getString(Is_ACtiveDateColumnIndex);
 
             result += supplier + " " + paymentdate + " " + duedate + " " + balance + " " + paidamount + " " + total + " " +
-                    status + " " + invoice + " " + revenue + " " + createdby + " " + createddate + " " + updatedby + " " + updateddate + " " + isactive +" \n\n" ;
+                    status + " " + invoice + " " + revenue + " " + createdby + " " + createddate + " " + updatedby + " " + updateddate + " " + isactive + " \n\n";
             System.getProperty("line.seperator");
 
         }
 
         //To retrieve the product table data
-        while(cursor2.moveToNext()){
+        while (cursor2.moveToNext()) {
             String productname = cursor2.getString(productnameColumnIndex);
             String productsku = cursor2.getString(productSKUColumnIndex);
             String productvariant = cursor2.getString(productvariantColumnIndex);
@@ -231,7 +273,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
         }
 
-        while(cursor3.moveToNext()){
+        while (cursor3.moveToNext()) {
             String goodorderidfk = cursor3.getString(good_orderID_FKColumnIndex);
             String goodstatus = cursor3.getString(good_orderstatusColumnIndex);
             String gooddeliverto = cursor3.getString(good_delivertoColumnIndex);
@@ -246,7 +288,7 @@ public class DatabaseHelper extends SQLiteOpenHelper{
             String goodupdateddate = cursor3.getString(good_updateddateColumnIndex);
             String goodisactive = cursor3.getString(good_isactiveColumnIndex);
 
-            result += goodorderidfk + " " + goodstatus + " " + gooddeliverto + " " + goodwarehouse +  " " + goodprinted + " " +
+            result += goodorderidfk + " " + goodstatus + " " + gooddeliverto + " " + goodwarehouse + " " + goodprinted + " " +
                     goodpacked + " " + goodpicked + " " + goodshipped + " " + goodcreatedby + " " + goodcreateddate + " " +
                     goodupdatedby + " " + goodupdateddate + " " + goodisactive + " ";
             System.getProperty("line.seperator");
@@ -263,14 +305,14 @@ public class DatabaseHelper extends SQLiteOpenHelper{
     public Location getLocation(String date) {
         SQLiteDatabase db = this.getReadableDatabase();
         String selectQuery = "SELECT  * FROM " + Locations_entry.LOCATION_TABLE_NAME + " WHERE "
-              + Locations_entry.CURRENT_DATE + " = '" + date + "'";
+                + Locations_entry.CURRENT_DATE + " = '" + date + "'";
 
         Log.e("DatabaseHelper", selectQuery);
 
         Cursor c = db.rawQuery(selectQuery, null);
-        Log.v("tempMethod","No of rows: "+c.getCount());
+        Log.v("tempMethod", "No of rows: " + c.getCount());
 
-        int locationdate=c.getColumnIndex(Locations_entry.CURRENT_DATE);
+        int locationdate = c.getColumnIndex(Locations_entry.CURRENT_DATE);
 
 
         if (c != null)
@@ -278,27 +320,71 @@ public class DatabaseHelper extends SQLiteOpenHelper{
 
 
         Location td = null;
-        while(c.moveToNext())
-        {
+        while (c.moveToNext()) {
             td = new Location();
             td.setId((c.getInt(c.getColumnIndex(Locations_entry.LOCATION_ID))));
             td.setLatitude((c.getString(c.getColumnIndex(Locations_entry.LOCATION_LATITUDE))));
             td.setLongitude(c.getString(c.getColumnIndex(Locations_entry.LOCATION_LONGITUDE)));
-            //String x= td.getLatitude();
-            //String y=td.getLongitude();
 
-            Log.v("DatabaseHelper",td.getId()+"-"+td.getLatitude()+"-"+td.getLongitude()+"-"+c.getString(locationdate));
-           //LatLng latLng= new LatLng(x,y);
-
-            //maps.addMarker(	new MarkerOptions().position(x,y).title("Hello world"));
-
+            Log.v("DatabaseHelper", td.getId() + "-" + td.getLatitude() + "-" + td.getLongitude() + "-" + c.getString(locationdate));
         }
-       return td;
+        Log.v("mylocations",td.toString());
+        return td;
 
     }
 
-    public void showmap( String x, String y ){
-
-
+    public Cursor getListContents() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Select * FROM " + DataContract.Customer_Entry.TABLE_NAME;
+        Cursor data = db.rawQuery(query, null);
+        return data;
     }
+
+    public ArrayList<Customer> getList() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Select " + Customer_Entry.COLUMN_EnterpriseName  + " FROM " + DataContract.Customer_Entry.TABLE_NAME;
+        Cursor data = db.rawQuery(query, null);
+        Log.v("fa",data.toString());
+        list = new ArrayList<>();
+        while (data.moveToNext()) {
+
+            String enterprisename = data.getString(data.getColumnIndex(Customer_Entry.COLUMN_EnterpriseName));
+            list.add(new Customer(enterprisename));
+        }
+        Log.v("myvan",list.toString());
+        return list;
+    }
+
+    public ArrayList<Product> getProducts() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Select " + Product_Entry.COLUMN_PRODUCT_NAME + "," + Product_Entry.COLUMN_UNITPRICE + "," +
+                Product_Entry.COLUMN_PRODUCT_IMAGE + " FROM " + Product_Entry.PRODUCT_TABLE_NAME;
+        Cursor data = db.rawQuery(query, null);
+        Log.v("fa", data.toString());
+        productlist = new ArrayList<>();
+        while (data.moveToNext()) {
+
+            String productname = data.getString(data.getColumnIndex(Product_Entry.COLUMN_PRODUCT_NAME));
+            String productprice = data.getString(data.getColumnIndex(Product_Entry.COLUMN_UNITPRICE));
+            String productimage = data.getString(data.getColumnIndex(Product_Entry.COLUMN_PRODUCT_IMAGE));
+            productlist.add(new Product(productname, productprice, productimage));
+        }
+        Log.v("myvan", productlist.toString());
+        return productlist;
+    }
+  /* public ArrayList<Product> getProducts() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        String query = "Select " + Product_Entry.COLUMN_PRODUCT_NAME + "," + Product_Entry.COLUMN_UNITPRICE + " FROM " + Product_Entry.PRODUCT_TABLE_NAME;
+        Cursor data = db.rawQuery(query, null);
+        Log.v("fa",data.toString());
+        productlist = new ArrayList<>();
+        while (data.moveToNext()) {
+
+            String productname = data.getString(data.getColumnIndex(Product_Entry.COLUMN_PRODUCT_NAME));
+            String productprice = data.getString(data.getColumnIndex(Product_Entry.COLUMN_UNITPRICE));
+            productlist.add(new Product(productname,productprice));
+        }
+       Log.v("myvan",productlist.toString());
+        return productlist;
+    }*/
 }

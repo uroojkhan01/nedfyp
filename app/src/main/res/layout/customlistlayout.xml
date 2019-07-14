@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="#c8e7f0"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/listtext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="34dp"
+        android:paddingBottom="18dp"
+        android:layout_marginBottom="20dp"
+        android:clickable="true"
+        android:descendantFocusability="blocksDescendants"
+        android:focusable="false"
+        android:text="TextView"
+        android:textColor="#272878"
+        android:textSize="18dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button17"
+        android:layout_width="70dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginTop="22dp"
+        android:text="Select"
+        android:textSize="10dp"
+        android:layout_marginBottom="15dp"
+        android:textColor="#272878"
+        android:textStyle="bold"
+        android:background="@drawable/buttoncustom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button18"
+        android:layout_width="70dp"
+        android:layout_height="36dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="22dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/buttoncustom"
+        android:text="Details"
+        android:textSize="10dp"
+        android:textColor="#272878"
+        app:layout_constraintEnd_toStartOf="@+id/button17"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</android.support.constraint.ConstraintLayout>

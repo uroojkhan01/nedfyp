@@ -4,9 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#c8e7f0"
     tools:context=".MainActivity">
 
-    <Button
+    <!--Button
         android:id="@+id/retrieve_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -14,8 +15,9 @@
         android:layout_marginTop="20dp"
         android:onClick="loadStudents"
         android:text="Retrieve"
+        android:background="@drawable/buttoncustom"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintTop_toBottomOf="@+id/button2" /-->
 
     <TextView
         android:id="@+id/textView"
@@ -27,17 +29,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <!--Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
+        android:layout_marginTop="20dp"
         android:onClick="Callfunction"
         android:text="Insert"
+        android:background="@drawable/buttoncustom"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="62dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" /-->
 
-    <Button
+    <!--Button
         android:id="@+id/button_map"
         android:layout_width="117dp"
         android:layout_height="wrap_content"
@@ -45,28 +49,91 @@
         android:layout_marginTop="12dp"
         android:onClick="maps_function"
         android:text="Go To Maps"
+        android:background="@drawable/buttoncustom"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/retrieve_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/retrieve_btn" /-->
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/buttoncustom"
         android:onClick="view_locations"
         android:text="See Locations"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_map" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <Button
+        android:id="@+id/test"
+        android:layout_width="wrap_content"
+        android:layout_height="42dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/buttoncustom"
+        android:onClick="sending"
+        android:text="Test"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button24" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="41dp"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/buttoncustom"
+        android:onClick="Uploading"
+        android:text="Upload"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/test" />
+
+    <!--Button
+        android:id="@+id/button6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="64dp"
+        android:layout_marginTop="64dp"
+        android:text="delete"
+        android:background="@drawable/buttoncustom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:onClick="delete"/-->
+
+    <Button
+        android:id="@+id/button23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/buttoncustom"
+        android:onClick="fetchcustomers"
+        android:text="Customers Management"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
+
+    <Button
+        android:id="@+id/button24"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="28dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/buttoncustom"
+        android:onClick="fetchproducts"
+        android:text="Products Management
+"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button23" />
 
 </android.support.constraint.ConstraintLayout>

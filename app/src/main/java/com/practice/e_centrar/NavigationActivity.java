@@ -16,13 +16,11 @@ import android.widget.Button;
 public class NavigationActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     DrawerLayout drawer;
-    Button btn1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_navigation);
-
-        btn1 = (Button) findViewById(R.id.navbutton);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
@@ -35,28 +33,22 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
         actionBarDrawerToggle.syncState();
     }
 
-    public void gotomain(View view){
-
-        Intent intent2 = new Intent(this,MainActivity.class);
-        startActivity(intent2);
-    }
-
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         switch(item.getItemId())
         {
             case R.id.upload:
-                Intent intent = new Intent(NavigationActivity.this, LoginActivity.class);
+                Intent intent = new Intent(NavigationActivity.this, CustomerActivity.class);
                 startActivity(intent);
-                break;
+                return true;
 
             case R.id.download:
                 Intent intent1 = new Intent(NavigationActivity.this, MainActivity.class);
                 startActivity(intent1);
-                break;
+                return true;
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -67,4 +59,10 @@ public class NavigationActivity extends AppCompatActivity implements NavigationV
             super.onBackPressed();
         }
     }
+  public void gotomain(){
+        Intent intent = new Intent(this,MainActivity.class);
+        startActivity(intent);
+
+  }
+
 }

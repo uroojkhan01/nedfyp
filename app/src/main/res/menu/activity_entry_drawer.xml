@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/customerlist"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="CustomerList"
+            />
+        <item
+            android:id="@+id/nav_gallery"
+            android:icon="@drawable/ic_cloud_upload_black_24dp"
+            android:title="See Locations" />
+        <item
+            android:id="@+id/gotomap"
+            android:icon="@drawable/ic_directions_black_24dp"
+            android:title="Go To Maps"  />
+        <item
+            android:id="@+id/seemylocation"
+            android:icon="@drawable/ic_place_black_24dp"
+            android:title="SeeMyLocation" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/main"
+                android:icon="@drawable/ic_menu_share"
+                android:title="MainActiviy" />
+            <item
+                android:id="@+id/nav_send"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Send" />
+        </menu>
+    </item>
+
+</menu>

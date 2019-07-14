@@ -5,7 +5,6 @@ public class Location{
     int id;
     String longitude;
     String latitude;
-
     // constructors
     public Location() {
 
